@@ -1,8 +1,15 @@
 import { Box, Button, Typography } from "@mui/material/";
 import styles from "../../../style";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { DataSerieProps } from "../../../api/types";
 
-const DataSerie = () => {
+type DataSerieDayProps = {
+  data: DataSerieProps;
+};
+type ResultProps = {
+  text: string;
+};
+const DataSerie = ({ data }: DataSerieDayProps) => {
   const stylesButtom = (color: string) => {
     return {
       backgroundColor: styles.bgColor[color as keyof typeof styles.bgColor],
@@ -17,9 +24,10 @@ const DataSerie = () => {
       },
     };
   };
+
   return (
     <>
-      <Box maxWidth="500px" paddingLeft={5}>
+      <Box maxWidth="700px" paddingLeft={5}>
         <Box sx={{ display: "flex", alignItems: "center", pt: 3 }}>
           <Typography component="span" variant="h3" color="error">
             S
@@ -33,7 +41,6 @@ const DataSerie = () => {
             S E R I E S
           </Typography>
         </Box>
-
         {/* title da série */}
         <Typography
           component="p"
@@ -42,7 +49,7 @@ const DataSerie = () => {
           paddingLeft={5}
           sx={{ fontFamily: "fantasy" }}
         >
-          Stranger
+          {data.name}
         </Typography>
         <Typography
           component="p"
@@ -51,9 +58,8 @@ const DataSerie = () => {
           marginLeft={10}
           sx={{ fontFamily: "fantasy" }}
         >
-          Things
+          {/* Things */}
         </Typography>
-
         <Typography
           component="p"
           color="#fff"
@@ -63,13 +69,9 @@ const DataSerie = () => {
             fontWeight: styles.typography.fontWeight.min,
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et erat
-          et justo tristique elementum. Vivamus ut quam euismod lorem euismod
-          posuere non ut turpis. Quisque facilisis suscipit tortor vulputate
-          aliquet. Phasellus vitae felis augue. Quisque ac nisi porttitor,
-          finibus libero scelerisque, rhoncus magna.
+          {data.sumary?.replace(/<[^>]+>/g, "")}
         </Typography>
-
+        ;
         <Box display="flex" marginTop={3}>
           <Button sx={stylesButtom("default")}>
             <PlayArrowIcon /> Play

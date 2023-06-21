@@ -3,7 +3,12 @@ import { Box, Toolbar, Typography, InputBase, AppBar } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../style";
+import { useEffect, useState } from "react";
+import { useKey } from "../../hooks";
 
+type MenuProps = {
+  setSearchInput: (dataInput: string) => void;
+};
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -58,7 +63,20 @@ const StylesTypography = {
   },
 };
 
-const Menu = () => {
+const Menu = ({ setSearchInput }: MenuProps) => {
+  const [input, setInput] = useState("");
+  const [textInput, setTextInput] = useState("the office");
+
+  const handleEnterKey = () => {
+    setTextInput(input);
+    setInput("");
+  };
+  useKey("Enter", handleEnterKey);
+
+  useEffect(() => {
+    setSearchInput(textInput);
+  }, [textInput]);
+
   return (
     <Box
       margin="auto"
@@ -150,6 +168,8 @@ const Menu = () => {
             />
           </SearchIconWrapper>
           <StyledInputBase
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />

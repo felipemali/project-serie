@@ -14,13 +14,14 @@ type Serie = {
   imageUrl: string;
 };
 const Home = ({ name, sobrenome }: HomeProps) => {
+  const [searchInput, setSearchInput] = useState('')
   // const { data } = useSerie();
   // const result = SearchSeries("natureza");
 
   return (
     <>
-      <Menu />
-      <FeatureSerie />
+      <Menu setSearchInput={setSearchInput} />
+      <FeatureSerie searchInput={searchInput} />
       <PopularSeries />
     </>
   );

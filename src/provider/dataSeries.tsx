@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -28,6 +28,7 @@ const SeriesProvider = ({ children }: ProviderProps) => {
     name: "felipe",
     age: 21,
   });
+  
 
   const values: dataSeriesContextProps = {
     data,

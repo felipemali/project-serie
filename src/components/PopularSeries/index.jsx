@@ -1,11 +1,13 @@
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay } from "swiper";
-import { SearchSeries } from "../../api";
+import { NewEpisodesDay, SearchSeries } from "../../api";
 import { Box, Typography } from "@mui/material";
 import styles from "../../style";
 const PopularSeries = () => {
   const series = SearchSeries("natureza");
+  const newEpisodes = NewEpisodesDay();
+
   SwiperCore.use([Autoplay]);
 
   const stylesSwiperSlide = (data) => {
@@ -36,21 +38,24 @@ const PopularSeries = () => {
         fontSize={styles.fontSize.max}
         marginTop={3}
       >
-        Popular On Netflix
+        Popular On Showflix
       </Typography>
       <Swiper
         // autoplay={{
-        //   delay: 2000,
+        //   delay: 4000,
         //   disableOnInteraction: true,
         // }}
         initialSlide={2}
-        spaceBetween={-1200}
-        slidesPerView={3}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        spaceBetween={window.innerWidth <= 1860 ? 50 : -1200}
+        slidesPerView={window.innerWidth <= 1860 ? 6 : 3}
+        // onSlideChange={() => console.log("slide change")}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
         {series?.map((data) => (
-          <SwiperSlide style={stylesSwiperSlide(data)}></SwiperSlide>
+          <SwiperSlide
+            key={data.id}
+            style={stylesSwiperSlide(data)}
+          ></SwiperSlide>
         ))}
       </Swiper>
     </Box>
